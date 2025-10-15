@@ -7,7 +7,9 @@ public:
     void render(sf::RenderWindow& window);
     sf::FloatRect getBounds() const;
 
-private:
+protected:
     sf::RectangleShape _shape;
+
+private:
     bool _isDestroyed;
 };

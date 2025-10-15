@@ -27,7 +27,7 @@ private:
 	static constexpr float PITCH_INCREASE_ON_BOUNCE = 0.2f;
 	static constexpr float BALL_BOUNCE_DEFAULT_PITCH = 0.5f;
 	static constexpr float TRAIL_MODULATE = 0.8f; // multiplied with each component of RGB
-	static constexpr unsigned char TRAIL_ALPHA = 0.25f * 255;
+	static constexpr unsigned char TRAIL_ALPHA = 60;
 	static constexpr float TRAIL_SPAWN_INTERVAL = 0.02f;
 	static constexpr size_t NUM_TRAILS = 7;
 

@@ -8,6 +8,10 @@ BrickManager::BrickManager(sf::RenderWindow* window, GameManager* gameManager)
 
 void BrickManager::createBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing)
 {
+    for (auto& particle : _particles) {
+        particle.setSize({ brickWidth,brickHeight });
+    }
+
     float leftEdge;
     if (cols % 2 == 0) 
         leftEdge = _window->getSize().x / 2 - ((cols / 2.0f) * brickWidth + (cols / 2.0f - 0.5f) * spacing);
@@ -28,6 +32,16 @@ void BrickManager::render()
     for (auto& brick : _bricks) {
         brick.render(*_window);
     }
+
+    for (auto& particle : _particles) {
+        if (particle.isOnScreen()) particle.render(*_window);
+    }
+}
+
+void BrickManager::update(float dt) {
+    for (auto& particle : _particles) {
+        particle.update(dt);
+    }
 }
 
 int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
@@ -46,9 +60,12 @@ int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
             // unless it's horizontal (collision from side)
             collisionResponse = 1;
 
+        spawnParticle(brick.getBounds().getPosition(), direction);
+
         // Mark the brick as destroyed (for simplicity, let's just remove it from rendering)
         // In a complete implementation, you would set an _isDestroyed flag or remove it from the vector
         brick = _bricks.back();
+
         _bricks.pop_back();
         _gameManager->addScore(1);
         break;
@@ -59,4 +76,14 @@ int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
         _gameManager->addScore(10);
     }
     return collisionResponse;
+}
+
+void BrickManager::spawnParticle(sf::Vector2f pos, sf::Vector2f ballDirection)
+{
+    for (auto& particle : _particles) {
+        if (particle.isOnScreen()) continue;
+        float angularVelocity = ballDirection.x * PARTICLE_ANGULAR_VELOCITY;
+        particle.set(pos, angularVelocity); 
+        return;
+    }
 }
