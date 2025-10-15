@@ -1,5 +1,6 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
+#include <iostream>
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
 	: _window(window), _velocity(velocity), _gameManager(gameManager),
@@ -9,6 +10,12 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
 	_sprite.setFillColor(sf::Color::Cyan);
 	_sprite.setPosition(0, 300);
 	resetPitch();
+
+	// start with no trail
+	for (sf::CircleShape& trail : _trails) {
+		trail.setFillColor(sf::Color::Transparent);
+		trail.setRadius(RADIUS);
+	}
 }
 
 Ball::~Ball()
@@ -17,6 +24,8 @@ Ball::~Ball()
 
 void Ball::update(float dt)
 {
+	updateTrail(dt);
+
 	// check for powerup, tick down or correct
 	if (_timeWithPowerupEffect > 0.f)
 	{
@@ -103,6 +112,10 @@ void Ball::update(float dt)
 
 void Ball::render()
 {
+	for (sf::CircleShape& trail : _trails) {
+		_window->draw(trail);
+	}
+
 	_window->draw(_sprite);
 }
 
@@ -133,4 +146,24 @@ void Ball::playSound()
 void Ball::resetPitch()
 {
 	_ballBounceSound.setPitch(BALL_BOUNCE_DEFAULT_PITCH);
+}
+
+void Ball::updateTrail(float dt)
+{
+	if constexpr (NUM_TRAILS == 0) return;
+
+	_secondsSinceTrailSpawn += dt;
+	if (_secondsSinceTrailSpawn < TRAIL_SPAWN_INTERVAL)  return;
+	_secondsSinceTrailSpawn = 0;
+
+
+	// move least recently used trail to ball pos, make it the same colour (with less alpha)
+	_trails[_trailIndex].setPosition(_sprite.getPosition());
+	sf::Color color = _sprite.getFillColor();
+	color.r *= TRAIL_MODULATE;
+	color.g *= TRAIL_MODULATE;
+	color.b *= TRAIL_MODULATE;
+	color.a = TRAIL_ALPHA;
+	_trails[_trailIndex].setFillColor(color);
+	_trailIndex = (_trailIndex + 1) % NUM_TRAILS;
 }
