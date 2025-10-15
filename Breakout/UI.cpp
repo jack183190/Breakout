@@ -3,9 +3,11 @@
 #include "UI.h"
 #include "GameManager.h"
 #include <iomanip>
+#include "LeaderboardManager.h"
+#include <iostream>
 
-UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager)
-	: _window(window), _gameManager(gameManager), _powerupProgress(window, sf::Vector2f{ 780, 10 })
+UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager, LeaderboardManager& leaderboardManager)
+	: _window(window), _gameManager(gameManager), _powerupProgress(window, sf::Vector2f{ 780, 10 }), _leaderboardManager(leaderboardManager)
 {
 	for (int i = lives; i > 0; --i)
 	{
@@ -23,6 +25,16 @@ UI::UI(sf::RenderWindow* window, int lives, GameManager* gameManager)
 	_font.loadFromFile("font/montS.ttf");
 	_powerupText.setFont(_font);
 	_currentPowerup = { none,0 };
+	_leaderboardText.setString("");
+	_leaderboardText.setFont(_font);
+	_leaderboardText.setPosition(680, 400);
+	_leaderboardText.setFillColor(sf::Color::Yellow);
+	_scoreText.setString("");
+	_scoreText.setFont(_font);
+	_scoreText.setPosition(80, 500);
+	_scoreText.setFillColor(sf::Color::Yellow);
+
+	setScore(0);
 }
 
 UI::~UI()
@@ -74,14 +86,26 @@ void UI::updatePowerupText(std::pair<POWERUPS, float> powerup)
 void UI::lifeLost(int lives)
 {
 	_lives[_lives.size() - 1 - lives].setFillColor(sf::Color::Transparent);
+	if (lives == 0) {
+		_leaderboardText.setString(_leaderboardManager.getScoresString());
+	}
+}
+
+void UI::setScore(int score)
+{
+	_scoreText.setString("Score: " + std::to_string(score));
 }
 
 void UI::render()
 {
 	_window->draw(_powerupText);
-	if (_currentPowerup.first != none && _currentPowerup.second > 0)	_powerupProgress.render();
+	if (_currentPowerup.first != none && _currentPowerup.second > 0) {
+		_powerupProgress.render();
+	}
 	for (sf::CircleShape life : _lives)
 	{
 		_window->draw(life);
 	}
+	_window->draw(_scoreText);
+	_window->draw(_leaderboardText);
 }

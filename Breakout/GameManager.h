@@ -7,8 +7,8 @@
 #include "PowerupManager.h"
 #include "MessagingSystem.h"
 #include "UI.h"
-
-
+#include "LeaderboardManager.h"
+#include <memory>
 
 class GameManager {
 public:
@@ -19,6 +19,7 @@ public:
     void render();
     void levelComplete();
     void powerupEffect(POWERUPS pu, float t);
+    void addScore(std::uint64_t score);
 
     Paddle* getPaddle() const;
     BrickManager* getBrickManager() const;
@@ -46,6 +47,8 @@ private:
     PowerupManager* _powerupManager;
     MessagingSystem* _messagingSystem;
     UI* _ui;
+    std::unique_ptr<LeaderboardManager> _leaderboard; // doesn't match code style but worth migrating to smart ptrs
+    std::uint64_t _score = 0;
 
     static constexpr float PAUSE_TIME_BUFFER = 0.5f;
     static constexpr float POWERUP_FREQUENCY = 7.5f;    // time between minimum powerup spawn

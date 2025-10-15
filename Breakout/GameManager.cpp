@@ -22,7 +22,8 @@ void GameManager::initialize()
     _messagingSystem = new MessagingSystem(_window);
     _ball = new Ball(_window, 400.0f, this); 
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
-    _ui = new UI(_window, _lives, this);
+    _leaderboard = std::make_unique<LeaderboardManager>();
+    _ui = new UI(_window, _lives, this, *_leaderboard);
 
     // Create bricks
     _brickManager->createBricks(5, 10, 80.0f, 30.0f, 5.0f);
@@ -90,6 +91,7 @@ void GameManager::update(float dt)
 void GameManager::loseLife()
 {
     _lives--;
+    if (_lives == 0) _leaderboard->addScore(_score);
     _ui->lifeLost(_lives);
 
     // TODO screen shake.
@@ -108,6 +110,11 @@ void GameManager::render()
 void GameManager::levelComplete()
 {
     _levelComplete = true;
+}
+
+void GameManager::addScore(std::uint64_t score) {
+    _score += score;
+    _ui->setScore(_score);
 }
 
 sf::RenderWindow* GameManager::getWindow() const { return _window; }
