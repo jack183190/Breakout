@@ -34,3 +34,8 @@ fire ball (green)
 
 * Fix the compiler issues in the code (1 min)
 * Better UI (progress bar rather than timer for countdown). (23m)
+* Ball bounce sound effect with increasing tone. (29m inc recording)
+
+# Assets Used
+
+* https://pixabay.com/sound-effects/retro-coin-2-236685/
