@@ -23,7 +23,6 @@ fire ball (green)
 
 * Implement mouse input for pad
 * Improved VFX (ball trail, paddle hit response, brick particle destruction)
-* Better UI (progress bar rather than timer for countdown).
 * GameLoop
 * Better ball physics (Box2D)
 * Leaderboards
@@ -32,4 +31,6 @@ fire ball (green)
 * Implement commentary with calls to an LLM such as LLama
 
 # Time Details and Changelist
-<Add information to this section about the time you've taken for this task along with a professional changelist.>
+
+* Fix the compiler issues in the code (1 min)
+* Better UI (progress bar rather than timer for countdown). (23m)

@@ -4,6 +4,7 @@
 
 #include "CONSTANTS.h"
 #include "PowerupManager.h"
+#include "ProgressBar.h"
 
 class GameManager;
 
@@ -23,7 +24,8 @@ private:
 	sf::RenderWindow* _window;
 	sf::Font _font;
 	sf::Text _powerupText;
-
+	ProgressBar _powerupProgress;
+	std::pair<POWERUPS, float> _currentPowerup;
 	std::vector<sf::CircleShape> _lives;
 
 	static constexpr float LIFE_RADIUS = 15.0f;
