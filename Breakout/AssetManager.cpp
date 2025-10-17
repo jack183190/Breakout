@@ -10,6 +10,10 @@ AssetManager::AssetManager()
 	if (!eyeTexture.loadFromFile("tex/eye.png")) {
 		std::cerr << "Failed to load eye texture\n";
 	}
+
+	if (!mouthTexture.loadFromFile("tex/mouth.png")) {
+		std::cerr << "Failed to load mouth texture\n";
+	}
 }
 
 const AssetManager& AssetManager::Singleton()

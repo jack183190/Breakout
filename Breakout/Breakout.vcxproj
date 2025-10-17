@@ -159,6 +159,7 @@
     <ClCompile Include="PowerupSmallPaddle.cpp" />
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="PowerupSmallPaddle.h" />
     <ClInclude Include="ProgressBar.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

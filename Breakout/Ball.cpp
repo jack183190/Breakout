@@ -119,6 +119,11 @@ void Ball::render()
 	_window->draw(_sprite);
 }
 
+sf::Vector2f Ball::getPosition()
+{
+	return _sprite.getPosition();
+}
+
 void Ball::setVelocity(float coeff, float duration)
 {
 	_velocity = coeff * VELOCITY;

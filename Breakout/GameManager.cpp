@@ -21,6 +21,7 @@ void GameManager::initialize()
     _brickManager = new BrickManager(_window, this);
     _messagingSystem = new MessagingSystem(_window);
     _ball = new Ball(_window, 400.0f, this); 
+    _paddle->setBall(_ball);
     _powerupManager = new PowerupManager(_window, _paddle, _ball);
     _leaderboard = std::make_unique<LeaderboardManager>();
     _ui = new UI(_window, _lives, this, *_leaderboard);

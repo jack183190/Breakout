@@ -39,6 +39,8 @@ fire ball (green)
 * Leaderboard (31m)
 * Brick particles on destruction (33m)
 * Added eyes to paddle (17m)
+* Added mouth to paddle (36m)
 
 # Assets Used
-* https://pixabay.com/sound-effects/retro-coin-2-236685/
+* Ball bounce sound effect: https://pixabay.com/sound-effects/retro-coin-2-236685/
+* Remap code function: https://cplusplus.com/forum/general/113069/

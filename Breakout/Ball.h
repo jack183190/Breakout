@@ -15,6 +15,7 @@ public:
 	void render();
 	void setVelocity(float coeff, float duration);
 	void setFireBall(float duration);
+	sf::Vector2f getPosition();
 
 private:
 	void playSound();

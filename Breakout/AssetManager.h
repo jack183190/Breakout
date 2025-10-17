@@ -14,5 +14,6 @@ public:
 
 	sf::SoundBuffer ballBounceSound;
 	sf::Texture eyeTexture;
+	sf::Texture mouthTexture;
 };
 
