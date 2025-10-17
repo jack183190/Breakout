@@ -37,6 +37,8 @@ fire ball (green)
 * Ball bounce sound effect with increasing tone. (29m inc recording)
 * Ball Trail (20m)
 * Leaderboard (31m)
+* Brick particles on destruction (33m)
+* Added eyes to paddle (17m)
 
 # Assets Used
 * https://pixabay.com/sound-effects/retro-coin-2-236685/
